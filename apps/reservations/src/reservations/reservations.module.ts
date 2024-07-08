@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
-import { ReservationsController } from './reservations.controller';
 import { ReservationsService } from './reservations.service';
+import { ReservationsController } from './reservations.controller';
 import { DatabaseModule } from '@app/common';
 
 @Module({
@@ -8,4 +8,4 @@ import { DatabaseModule } from '@app/common';
   controllers: [ReservationsController],
   providers: [ReservationsService],
 })
-export class ReservationsModule {}
+export class ReservationsModule { }
