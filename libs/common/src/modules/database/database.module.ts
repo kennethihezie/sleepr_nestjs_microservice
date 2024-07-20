@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
-import configuration from '../../helper/configuration';
+import configuration from '../../shared/config/configuration';
 
 const config = configuration()
 
