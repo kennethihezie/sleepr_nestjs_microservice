@@ -36,7 +36,7 @@ export abstract class BaseRepository<TDocument extends BaseDocument> {
          return document
     }
 
-    async find(filterQuery: FilterQuery<TDocument>): Promise<TDocument[]> {
+    async find(filterQuery?: FilterQuery<TDocument>): Promise<TDocument[]> {
         return this.model.find(filterQuery).lean<TDocument[]>(true)
     }
 
