@@ -26,6 +26,21 @@ services:
     volumes:
       - .:/app
 
+   auth:
+    build: 
+      context: .
+      dockerfile: ./apps/auth/Dockerfile
+      target: developemnt
+    depends_on:
+      - mongodb
+    env_file:
+      - .env
+    command: ["yarn", "start:dev", "auth"]
+    ports:
+      - '3001:3001'
+    volumes:
+      - .:/app
+
 
 volumes:
  mongodb-data:
