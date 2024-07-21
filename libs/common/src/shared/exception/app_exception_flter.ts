@@ -1,7 +1,7 @@
 import { ArgumentsHost, Catch, ExceptionFilter, HttpException } from "@nestjs/common";
 import e, { Request, Response } from "express";
-import { ResponseFormat } from "../utils/response_format";
 import { MongoError } from 'mongodb';
+import { ResponseFormat } from "../response/response_format";
 
 /*
  The AppExceptionFilter class is used to handle all 

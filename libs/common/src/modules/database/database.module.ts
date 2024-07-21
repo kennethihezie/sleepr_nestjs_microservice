@@ -5,7 +5,7 @@ import configuration from '../../shared/config/configuration';
 const config = configuration()
 
 @Module({
-  imports: [MongooseModule.forRoot(config.mongodb.url)]
+  imports: [MongooseModule.forRoot(config.mongodb.url, { dbName: config.mongodb.dbName })]
 })
 export class DatabaseModule {
     static forFeature(models: ModelDefinition[]){
