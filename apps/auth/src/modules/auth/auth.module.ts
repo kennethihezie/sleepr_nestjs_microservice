@@ -5,9 +5,21 @@ import { UsersModule } from '../users/users.module';
 import { APP_FILTER, APP_INTERCEPTOR, APP_PIPE } from '@nestjs/core';
 import { AppExceptionFilter } from '@app/common/shared/exception/app_exception_flter';
 import { ResponseInterceptor } from '@app/common/shared/interceptors/response.interceptor';
+import { LoggerModule } from '@app/common/modules';
+import { JwtModule } from '@nestjs/jwt';
+import { ConfigModule } from '@nestjs/config';
+import configuration from '../../config/configuration';
+
+const config = configuration()
+
 
 @Module({
-  imports: [UsersModule],
+  imports: [ConfigModule.forRoot({ isGlobal: true }), UsersModule, LoggerModule, JwtModule.register({
+    secret: config.jwt.jwtSecret,
+    signOptions: {
+      expiresIn: `${config.jwt.expiresIn}s`
+    }
+  })],
   controllers: [AuthController],
   providers: [
     AuthService,

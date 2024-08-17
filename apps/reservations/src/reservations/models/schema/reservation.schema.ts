@@ -20,5 +20,4 @@ export class Reservation extends BaseDocument {
     endDate: Date
 }
 
-
 export const ReservationSchema = SchemaFactory.createForClass(Reservation) 

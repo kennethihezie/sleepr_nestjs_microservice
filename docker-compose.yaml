@@ -2,6 +2,7 @@ version: '3'
 
 services:
    mongodb:
+    container_name: sleepr_mongodb
     image: mongo
     ports:
       - 27017:27017
@@ -12,6 +13,7 @@ services:
       - mongodb-data:/data/db
 
    reservations:
+    container_name: reservations_app
     build: 
       context: .
       dockerfile: ./apps/reservations/Dockerfile
@@ -19,7 +21,7 @@ services:
     depends_on:
       - mongodb
     env_file:
-      - .env
+      - ./apps/reservations/.env
     command: ["yarn", "start:dev", "reservations"]
     ports:
       - '3000:3000'
@@ -27,6 +29,7 @@ services:
       - .:/app
 
    auth:
+    container_name: auth_app
     build: 
       context: .
       dockerfile: ./apps/auth/Dockerfile
@@ -34,7 +37,7 @@ services:
     depends_on:
       - mongodb
     env_file:
-      - .env
+      - ./apps/auth/.env
     command: ["yarn", "start:dev", "auth"]
     ports:
       - '3001:3001'

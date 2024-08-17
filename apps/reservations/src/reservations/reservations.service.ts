@@ -9,7 +9,7 @@ export class ReservationsService {
     constructor(private readonly repository: ReservationsRepository) {}
 
     async create(dto: CreateReservationDto): Promise<Reservation>{
-        return await this.repository.create({...dto})
+        return await this.repository.create({...dto} as Reservation)
     }
 
     async findAll(): Promise<Reservation[]> {

@@ -1,11 +1,21 @@
 import { NestFactory } from '@nestjs/core';
 import { ReservationsModule } from './reservations/reservations.module';
-import { Logger } from 'nestjs-pino';
+import { Logger as PinoLogger } from 'nestjs-pino';
+import { config } from './config/configuration';
+import { Logger } from '@nestjs/common';
+
 
 async function bootstrap() {
   const app = await NestFactory.create(ReservationsModule);
-  app.useLogger(app.get(Logger))
-  await app.listen(3000);
+  app.useLogger(app.get(PinoLogger))
+  await app.listen(config.app.port);
 }
 
-bootstrap();
+bootstrap().then(() => {
+  Logger.log(`
+      ------------
+      Server Application Started!
+      Reservation Microserservice Started Successfully
+      ------------
+`);
+});

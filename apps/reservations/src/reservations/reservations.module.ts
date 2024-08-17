@@ -7,9 +7,11 @@ import { Reservation, ReservationSchema } from './models/schema/reservation.sche
 import { APP_FILTER, APP_INTERCEPTOR, APP_PIPE } from '@nestjs/core';
 import { AppExceptionFilter } from '@app/common/shared/exception/app_exception_flter';
 import { ResponseInterceptor } from '@app/common/shared/interceptors/response.interceptor';
+import { ConfigModule } from '@nestjs/config';
 
 @Module({
   imports: [
+    ConfigModule.forRoot({isGlobal: true}),
     LoggerModule,
     DatabaseModule,
     DatabaseModule.forFeature([{ name: Reservation.name, schema: ReservationSchema }]),
