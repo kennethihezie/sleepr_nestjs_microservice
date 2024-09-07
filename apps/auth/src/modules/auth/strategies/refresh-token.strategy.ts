@@ -28,7 +28,7 @@ export class RefreshTokenStrategy extends PassportStrategy(Strategy, 'jwt-refres
 
         const token = req.get('Authorization').replace('Bearer', '').trim()
 
-        if (user.accessToken !== token) {
+        if (user.token.accessToken !== token) {
             throw new UnauthorizedException('Invalid or expired token');
         }
 

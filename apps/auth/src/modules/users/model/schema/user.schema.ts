@@ -1,5 +1,6 @@
 import { BaseDocument } from "@app/common/modules";
 import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
+import { Token } from "../types/token.types";
 
 
 @Schema({ timestamps: true })
@@ -11,10 +12,7 @@ export class User extends BaseDocument {
    password: string
 
    @Prop()
-   accessToken: string
-
-   @Prop()
-   refreshToken: string
+   token: Token
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);

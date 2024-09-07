@@ -5,12 +5,13 @@ import { UsersService } from "../../users/users.service";
 import { config } from "apps/auth/src/config/configuration";
 import { Request } from "express";
 import { JwtPayload } from "../types/jwt-payload.type";
+import { AUTH_TOKEN } from "@app/common/shared/constants/services";
 
 @Injectable()
 export class AccessTokenStrategy extends PassportStrategy(Strategy, 'jwt') {
   constructor(private readonly userService: UsersService) {
     super({
-        jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
+        jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken() || ExtractJwt.fromBodyField(AUTH_TOKEN),
         secretOrKey: config.jwt.jwtSecret,
         passReqToCallback: true
     })
@@ -28,7 +29,7 @@ export class AccessTokenStrategy extends PassportStrategy(Strategy, 'jwt') {
 
     const token = req.get('Authorization').replace('Bearer', '').trim()
 
-    if (user.accessToken !== token) {
+    if (user.token.accessToken !== token) {
         throw new UnauthorizedException('Invalid or expired token');
     }
           

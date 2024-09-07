@@ -8,20 +8,20 @@ import { User } from '../users/model/schema/user.schema';
 @Injectable()
 export class AuthService { 
     constructor(private readonly appJwtService: AppJwtService, private readonly userService: UsersService) {}
-
+ 
     async signUp(payload: CreateUserDto): Promise<User> {
         const user = await this.userService.createUser(payload)
         return user
     }
 
+    async login(payload: LoginDto): Promise<User> {
+       const existingUser = await this.userService.validateUser(payload)
 
-    async login(payload: LoginDto) {
-       const user = await this.userService.validateUser(payload)
-       const accessToken = await this.appJwtService.generateJwtToken({ sub: user.id, email: user.email })
-       const refreshToken = await this.appJwtService.generateRefreshToken({ sub: user.id })
+       const accessToken = await this.appJwtService.generateJwtToken({ sub: existingUser.id, email: existingUser.email })
+       const refreshToken = await this.appJwtService.generateRefreshToken({ sub: existingUser.id })
 
-       await this.userService.updateUser(user.id, { accessToken, refreshToken })
+       const user = await this.userService.updateUser(existingUser.id, { token: { accessToken, refreshToken } })
 
-       return { user, accessToken, refreshToken }
+       return user
     }
 }
