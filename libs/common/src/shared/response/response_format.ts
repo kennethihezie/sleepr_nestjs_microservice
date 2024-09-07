@@ -6,7 +6,7 @@ import { AppCodes } from "../constants/app_code"
 
 /*
  The ResponseFormat class is used to handle 
- both error and succuessful response in a unified way.
+ both error and successful response in a unified way.
  */
 
 export class ResponseFormat {
@@ -26,7 +26,7 @@ export class ResponseFormat {
         })
     }
 
-    static handleSuccesResponse<T>(context: ExecutionContext, reflector: Reflector, data: T) {
+    static handleSuccessResponse<T>(context: ExecutionContext, reflector: Reflector, data: T) {
         return {
             statusCode: context.switchToHttp().getResponse<Response>().statusCode,
             status: AppCodes.SUCCESSFUL,

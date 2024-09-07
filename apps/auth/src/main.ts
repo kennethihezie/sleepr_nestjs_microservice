@@ -1,20 +1,18 @@
 import { NestFactory } from '@nestjs/core';
-import { AuthModule } from './modules/auth/auth.module';
 import { Logger as PinoLogger } from 'nestjs-pino/Logger';
 import { config } from './config/configuration';
 import { Logger } from '@nestjs/common';
-
+import { AuthRootModule } from './modules/root-module';
 
 async function bootstrap() {
-  const app = await NestFactory.create(AuthModule);
-  app.useLogger(app.get(Logger))
+  const app = await NestFactory.create(AuthRootModule);
+  app.useLogger(app.get(PinoLogger))
   await app.listen(config.app.port);
 }
 
 bootstrap().then(() => {
   Logger.log(`
       ------------
-      Server Application Started!
       Auth Microserservice Started Successfully
       ------------
 `);

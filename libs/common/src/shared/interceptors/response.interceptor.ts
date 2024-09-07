@@ -19,6 +19,6 @@ export class ResponseInterceptor<T> implements NestInterceptor<T, AppResponse<T>
     constructor(private reflector: Reflector) {}
 
     intercept(context: ExecutionContext, next: CallHandler<T>): Observable<AppResponse<T>> | Promise<Observable<AppResponse<T>>> {
-        return next.handle().pipe(map((data: T) => ResponseFormat.handleSuccesResponse<T>(context, this.reflector, data)))
+        return next.handle().pipe(map((data: T) => ResponseFormat.handleSuccessResponse<T>(context, this.reflector, data)))
     }
 }

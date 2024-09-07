@@ -1,9 +1,9 @@
 import { Module } from '@nestjs/common';
-import { LoggerModule as PinoLoggerModule } from 'nestjs-pino';
+import { LoggerModule } from 'nestjs-pino';
 
 @Module({
     imports: [
-        PinoLoggerModule.forRoot({
+        LoggerModule.forRoot({
             pinoHttp: {
                 transport: {
                     target: 'pino-pretty',
@@ -15,4 +15,4 @@ import { LoggerModule as PinoLoggerModule } from 'nestjs-pino';
         })
     ]
 })
-export class LoggerModule { }
+export class AppLoggerModule { }

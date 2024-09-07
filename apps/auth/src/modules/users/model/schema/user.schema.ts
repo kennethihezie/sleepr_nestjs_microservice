@@ -9,6 +9,12 @@ export class User extends BaseDocument {
 
    @Prop()
    password: string
+
+   @Prop()
+   accessToken: string
+
+   @Prop()
+   refreshToken: string
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);

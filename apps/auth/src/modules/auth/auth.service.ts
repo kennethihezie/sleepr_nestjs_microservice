@@ -1,29 +1,27 @@
 import { Injectable } from '@nestjs/common';
+import { LoginDto } from './dto/login.dto';
+import { AppJwtService } from './jwt.service';
+import { UsersService } from '../users/users.service';
+import { CreateUserDto } from '../users/model/dto/create-user.dto';
 import { User } from '../users/model/schema/user.schema';
-import { Response } from 'express';
-import { JwtService } from '@nestjs/jwt';
-import { config } from '../../config/configuration';
 
 @Injectable()
 export class AuthService { 
-    constructor(private readonly jwtService: JwtService) {}
+    constructor(private readonly appJwtService: AppJwtService, private readonly userService: UsersService) {}
 
-    async login(user: User, response: Response) {
-       const tokenPayload = {
-        userId: user._id.toString()
-       }
+    async signUp(payload: CreateUserDto): Promise<User> {
+        const user = await this.userService.createUser(payload)
+        return user
+    }
 
-       const expires = new Date()
-       expires.setSeconds(expires.getSeconds() + config.jwt.expiresIn)
 
-       const token = await this.jwtService.signAsync(tokenPayload)
+    async login(payload: LoginDto) {
+       const user = await this.userService.validateUser(payload)
+       const accessToken = await this.appJwtService.generateJwtToken({ sub: user.id, email: user.email })
+       const refreshToken = await this.appJwtService.generateRefreshToken({ sub: user.id })
 
-       // Set the token on the cookie for security
-       response.cookie('Authentication', token, {
-        httpOnly: true,
-        expires
-       })
+       await this.userService.updateUser(user.id, { accessToken, refreshToken })
 
-       response.send(user)
+       return { user, accessToken, refreshToken }
     }
 }

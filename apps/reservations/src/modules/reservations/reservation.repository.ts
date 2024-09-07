@@ -4,8 +4,6 @@ import { Reservation } from "./models/schema/reservation.schema";
 import { InjectModel } from "@nestjs/mongoose";
 import { Model } from "mongoose";
 
-
- 
 @Injectable()
 export class ReservationsRepository extends BaseRepository<Reservation> {
     protected logger: Logger = new Logger(ReservationsRepository.name);

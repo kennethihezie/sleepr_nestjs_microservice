@@ -9,6 +9,7 @@ export const config = {
     jwt: {
         jwtSecret: configService.get<string>('JWT_SECRET'),
         jwtRefreshSecret: configService.get<string>('JWT_REFRESH_SECRET'),
-        expiresIn: configService.get<number>('JWT_EXPIRES')
+        jwtExpiresIn: configService.get<string>('JWT_EXPIRES'),
+        jwtRefreshExpiresIn: configService.get<string>('JWT_REFRESH_EXPIRES')
     }
 }
