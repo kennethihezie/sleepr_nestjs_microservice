@@ -5,10 +5,7 @@ import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
 export class Reservation extends BaseDocument {
     @Prop()
     userId: string
-
-    @Prop()
-    placeId: string
-
+    
     @Prop()
     invoiceId: string
 

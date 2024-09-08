@@ -6,9 +6,7 @@ export const config  = {
     app: {
         httpPort: configService.get<number>('HTTP_PORT'),
         baseUrl: configService.get<string>('BASE_URL'),
-        authPort: configService.get<number>('AUTH_PORT'),
-        authHost: configService.get<string>('AUTH_HOST'),
-        paymentPort: configService.get<number>('PAYMENT_PORT'),
-        paymentHost: configService.get<string>('PAYMENT_HOST')
+        tcpPort: configService.get<number>('TCP_PORT'),
+        microserviceHost: configService.get<string>('MICRO_SERVICE_HOST')
     }
 }

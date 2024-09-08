@@ -43,6 +43,38 @@ services:
       - '3001:3001'
     volumes:
       - .:/app
+  
+   payments:
+    container_name: payments_app
+    build: 
+      context: .
+      dockerfile: ./apps/payments/Dockerfile
+      target: developemnt
+    depends_on:
+      - mongodb
+    env_file:
+      - ./apps/payments/.env
+    command: ["yarn", "start:dev", "payments"]
+    ports:
+      - '3003:3003'
+    volumes:
+      - .:/app
+
+   notifications:
+    container_name: notifications_app
+    build: 
+      context: .
+      dockerfile: ./apps/notifications/Dockerfile
+      target: developemnt
+    depends_on:
+      - mongodb
+    env_file:
+      - ./apps/notifications/.env
+    command: ["yarn", "start:dev", "notifications"]
+    ports:
+      - '3005:3005'
+    volumes:
+      - .:/app
 
 
 volumes:

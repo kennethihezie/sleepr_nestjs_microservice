@@ -1,3 +1,5 @@
 export const AUTH_SERVICE = 'auth-service'
+export const PAYMENT_SERVICE = 'payment-service'
 export const AUTHENTICATE_ROUTE = 'authenticate'
 export const AUTH_TOKEN = 'AUTH_TOKEN'
+export const CREATE_CHARGE_ROUTE = 'create-charge'

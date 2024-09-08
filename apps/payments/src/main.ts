@@ -1,13 +1,13 @@
 import { NestFactory } from '@nestjs/core';
+import { PaymentRootModule } from './modules/root.module';
 import { Logger as PinoLogger } from 'nestjs-pino';
+import helmet from 'helmet';
 import { config } from './config/configuration';
 import { Logger } from '@nestjs/common';
-import { ReservationRootModule } from './modules/root.module';
-import helmet from 'helmet';
-
+import { Transport } from '@nestjs/microservices';
 
 async function bootstrap() {
-  const app = await NestFactory.create(ReservationRootModule);
+  const app = await NestFactory.create(PaymentRootModule);
   app.setGlobalPrefix('api/v1');
 
   app.useLogger(app.get(PinoLogger))
@@ -22,6 +22,16 @@ async function bootstrap() {
     preflightContinue: false,
     credentials: true,
   });
+
+  app.connectMicroservice({
+    transport: Transport.TCP,
+    options: {
+      host: config.app.microserviceHost,
+      port: config.app.tcpPort
+    }
+  })
+
+  await app.startAllMicroservices()
   
   await app.listen(config.app.httpPort);
 }
@@ -29,7 +39,7 @@ async function bootstrap() {
 bootstrap().then(() => {
   Logger.log(`
       ------------
-      Reservation Microservice Started Successfully
+      Payments Microservice Started Successfully
       Base Url: ${config.app.baseUrl}
       ------------
 `);

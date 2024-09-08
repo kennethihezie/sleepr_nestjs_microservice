@@ -2,8 +2,9 @@ import { NestFactory } from '@nestjs/core';
 import { Logger as PinoLogger } from 'nestjs-pino/Logger';
 import { config } from './config/configuration';
 import { Logger } from '@nestjs/common';
-import { AuthRootModule } from './modules/root-module';
+import { AuthRootModule } from './modules/root.module';
 import { Transport } from '@nestjs/microservices';
+import helmet from 'helmet';
 
 async function bootstrap() {
   const app = await NestFactory.create(AuthRootModule);
@@ -18,6 +19,8 @@ async function bootstrap() {
   } })
   app.useLogger(app.get(PinoLogger))
 
+  app.use(helmet())
+  
   app.enableCors({
     origin: [
       config.app.baseUrl,

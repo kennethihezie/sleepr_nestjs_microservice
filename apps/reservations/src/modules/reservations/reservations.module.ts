@@ -5,7 +5,7 @@ import { DatabaseModule } from '@app/common/modules';
 import { ReservationsRepository } from './reservation.repository';
 import { Reservation, ReservationSchema } from './models/schema/reservation.schema';
 import { ClientsModule, Transport } from '@nestjs/microservices';
-import { AUTH_SERVICE } from '@app/common/shared/constants/services';
+import { AUTH_SERVICE, PAYMENT_SERVICE } from '@app/common/shared/constants/services';
 import { config } from '../../config/configuration';
 
 @Module({
@@ -13,14 +13,20 @@ import { config } from '../../config/configuration';
     DatabaseModule.forFeature([{ name: Reservation.name, schema: ReservationSchema }]),
     ClientsModule.register([
       {
-          name: AUTH_SERVICE, transport: Transport.TCP, options: {
-              /* Tells the microservice to binds to all interfaces on the host */
-              host: config.app.authHost,
-              /* The port for the tcp */
-              port: config.app.authPort
-          }
+        name: AUTH_SERVICE, transport: Transport.TCP, options: {
+          host: config.app.authHost,
+          port: config.app.authPort
+        }
       }
-  ]),
+    ]),
+    ClientsModule.register([
+      {
+        name: PAYMENT_SERVICE, transport: Transport.TCP, options: {
+          host: config.app.paymentHost,
+          port: config.app.paymentPort
+        }
+      }
+    ]),
   ],
   controllers: [ReservationsController],
   providers: [
