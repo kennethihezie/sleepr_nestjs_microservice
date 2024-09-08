@@ -13,7 +13,8 @@ async function bootstrap() {
   /* Used to create a microservice connection. You can select TCP, RMQ or other */
   app.connectMicroservice({ transport: Transport.RMQ, options: {
     urls: [ config.app.rabbitMq ],
-    queue: 'auth'
+    queue: 'auth',
+    noAck: false
   } })
   app.useLogger(app.get(PinoLogger))
 

@@ -23,13 +23,10 @@ async function bootstrap() {
     credentials: true,
   });
 
-  app.connectMicroservice({
-    transport: Transport.TCP,
-    options: {
-      host: config.app.microserviceHost,
-      port: config.app.tcpPort
-    }
-  })
+  app.connectMicroservice({ transport: Transport.RMQ, options: {
+    urls: [ config.app.rabbitMq ],
+    queue: 'notifications'
+  } })
 
   await app.startAllMicroservices()
   

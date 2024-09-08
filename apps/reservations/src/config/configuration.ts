@@ -9,6 +9,7 @@ export const config  = {
         authPort: configService.get<number>('AUTH_PORT'),
         authHost: configService.get<string>('AUTH_HOST'),
         paymentPort: configService.get<number>('PAYMENT_PORT'),
-        paymentHost: configService.get<string>('PAYMENT_HOST')
+        paymentHost: configService.get<string>('PAYMENT_HOST'),
+        rabbitMq: configService.get<string>('RABBIT_MQ_URI')
     }
 }

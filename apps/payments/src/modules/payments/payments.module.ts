@@ -9,9 +9,9 @@ import { config } from '../../config/configuration';
   imports: [
     ClientsModule.register([
       {
-        name: NOTIFICATION_SERVICE, transport: Transport.TCP, options: {
-          host: config.app.notificationHost,
-          port: config.app.notificationPort
+        name: NOTIFICATION_SERVICE, transport: Transport.RMQ, options: {
+          urls: [ config.app.rabbitMq ],
+          queue: 'notifications'
         }
       }
     ])

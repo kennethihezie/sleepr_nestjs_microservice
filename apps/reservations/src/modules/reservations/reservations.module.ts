@@ -13,15 +13,15 @@ import { config } from '../../config/configuration';
     DatabaseModule.forFeature([{ name: Reservation.name, schema: ReservationSchema }]),
     ClientsModule.register([
       {
-        name: AUTH_SERVICE, transport: Transport.TCP, options: {
-          host: config.app.authHost,
-          port: config.app.authPort
+        name: AUTH_SERVICE, transport: Transport.RMQ, options: {
+          urls: [ config.app.rabbitMq ],
+          queue: 'auth'
         }
       },
       {
-        name: PAYMENT_SERVICE, transport: Transport.TCP, options: {
-          host: config.app.paymentHost,
-          port: config.app.paymentPort
+        name: PAYMENT_SERVICE, transport: Transport.RMQ, options: {
+          urls: [ config.app.rabbitMq ],
+          queue: 'payments'
         }
       }
     ]),

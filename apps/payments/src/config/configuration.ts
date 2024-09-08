@@ -10,6 +10,7 @@ export const config  = {
         microserviceHost: configService.get<string>('MICRO_SERVICE_HOST'),
         notificationPort: configService.get<number>('NOTIFICATION_PORT'),
         notificationHost: configService.get<string>('NOTIFICATION_HOST'),
+        rabbitMq: configService.get<string>('RABBIT_MQ_URI')
     },
     stripe: {
         secretKey: configService.get<string>('STRIPE_SECRET_KEY'),
