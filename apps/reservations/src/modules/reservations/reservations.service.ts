@@ -8,8 +8,8 @@ import { UpdateReservationDto } from './models/dto/update-reservation.dto';
 export class ReservationsService {
     constructor(private readonly repository: ReservationsRepository) {}
 
-    async create(dto: CreateReservationDto): Promise<Reservation>{
-        return await this.repository.create({...dto} as Reservation)
+    async create(userId: string, dto: CreateReservationDto): Promise<Reservation>{
+        return await this.repository.create({ ...dto, userId } as Reservation)
     }
 
     async findAll(): Promise<Reservation[]> {

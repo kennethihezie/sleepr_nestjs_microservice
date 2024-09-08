@@ -3,8 +3,10 @@ import { ReservationsService } from './reservations.service';
 import { CreateReservationDto } from './models/dto/create-reservation.dto';
 import { ResponseMessage } from '@app/common/shared/decorators/response_message.decorator';
 import { UpdateReservationDto } from './models/dto/update-reservation.dto';
-import { JwtAuthGuard } from '@app/common/modules/auth/jwt-auth.guard';
-
+import { JwtAuthGuard } from '@app/common/shared/auth/jwt-auth.guard';
+import { CurrentUser } from '@app/common/shared/decorators/current-user.decorator';
+import { UserDto } from '@app/common/shared/dto/user.dto';
+import { AccessTokenGuard } from 'apps/auth/src/modules/auth/guards/access-token.guard';
 
 @UseGuards(JwtAuthGuard)
 @Controller('reservations')
@@ -13,8 +15,8 @@ export class ReservationsController {
 
   @Post()
   @ResponseMessage("Reservation created")
-  async create(@Body() dto: CreateReservationDto) {
-    return await this.service.create(dto)
+  async create(@Body() dto: CreateReservationDto, @CurrentUser() user: UserDto ) {
+    return await this.service.create(user._id ,dto)
   }
 
   @Get()

@@ -4,12 +4,14 @@ import { ResponseInterceptor } from "@app/common/shared/interceptors/response.in
 import { Module, ValidationPipe } from '@nestjs/common';
 import { ConfigModule } from "@nestjs/config";
 import { APP_PIPE, APP_FILTER, APP_INTERCEPTOR } from "@nestjs/core";
+import { ReservationsModule } from "./reservations/reservations.module";
 
 @Module({
     imports: [
         ConfigModule.forRoot({ isGlobal: true }),
         AppLoggerModule,
-        DatabaseModule
+        DatabaseModule,
+        ReservationsModule
     ],
     providers: [
         {

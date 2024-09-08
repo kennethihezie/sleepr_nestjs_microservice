@@ -7,9 +7,7 @@ import { config } from "../../config/configuration";
 export class AppJwtService {
    constructor(private readonly service: JwtService) {}
    
-    async generateJwtToken(payload: JwtPayload) {
-        console.log(config.jwt.jwtExpiresIn);
-        
+    async generateJwtToken(payload: JwtPayload) {        
        const accessToken = await this.service.signAsync(payload, { secret: config.jwt.jwtSecret, expiresIn: config.jwt.jwtExpiresIn })
        return accessToken
     }

@@ -14,13 +14,13 @@ export class AuthService {
         return user
     }
 
-    async login(payload: LoginDto): Promise<User> {
+    async login(payload: LoginDto): Promise<User> {        
        const existingUser = await this.userService.validateUser(payload)
 
        const accessToken = await this.appJwtService.generateJwtToken({ sub: existingUser.id, email: existingUser.email })
        const refreshToken = await this.appJwtService.generateRefreshToken({ sub: existingUser.id })
 
-       const user = await this.userService.updateUser(existingUser.id, { token: { accessToken, refreshToken } })
+       const user = await this.userService.updateUser(existingUser._id as string, { token: { accessToken, refreshToken } })
 
        return user
     }

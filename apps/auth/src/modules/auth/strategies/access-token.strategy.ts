@@ -11,14 +11,14 @@ import { AUTH_TOKEN } from "@app/common/shared/constants/services";
 export class AccessTokenStrategy extends PassportStrategy(Strategy, 'jwt') {
   constructor(private readonly userService: UsersService) {
     super({
-        jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken() || ExtractJwt.fromBodyField(AUTH_TOKEN),
+        jwtFromRequest: ExtractJwt.fromBodyField(AUTH_TOKEN),
         secretOrKey: config.jwt.jwtSecret,
         passReqToCallback: true
     })
   }
 
 
-  async validate(req: Request, payload: JwtPayload) {
+  async validate(req: Request, payload: JwtPayload) {    
     const { sub } = payload
 
     const user = await this.userService.getUser(sub)
@@ -32,6 +32,7 @@ export class AccessTokenStrategy extends PassportStrategy(Strategy, 'jwt') {
     if (user.token.accessToken !== token) {
         throw new UnauthorizedException('Invalid or expired token');
     }
+    
           
     return user
   }

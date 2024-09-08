@@ -2,7 +2,7 @@ import { Body, Controller, Post, UseGuards } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { LoginDto } from './dto/login.dto';
 import { CreateUserDto } from '../users/model/dto/create-user.dto';
-import { MessagePattern } from '@nestjs/microservices';
+import { MessagePattern, Payload } from '@nestjs/microservices';
 import { AccessTokenGuard } from './guards/access-token.guard';
 import { AUTHENTICATE_ROUTE } from '@app/common/shared/constants/services';
 
@@ -23,7 +23,7 @@ export class AuthController {
 
   @UseGuards(AccessTokenGuard)
   @MessagePattern(AUTHENTICATE_ROUTE)
-  async authenticate() {
-
+  async authenticate(@Payload() data: any) {
+     console.log(data);
   }
 }

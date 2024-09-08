@@ -17,8 +17,8 @@ export class UsersService {
         } as User)
     }
 
-    async validateUser({ email, password }: LoginDto): Promise<User> {
-        const user = await this.repository.findOne({ email })
+    async validateUser({ email, password }: LoginDto): Promise<User> {                
+        const user = await this.repository.findOne({ email})
         const isPasswordMatch = await bcrypt.compare(password, user.password)
 
         if(!isPasswordMatch){
@@ -28,13 +28,20 @@ export class UsersService {
         return user
     }
 
-    async getUser(id: string): Promise<User> {
-        return await this.repository.findOne({ id })
+    async getUser(_id: string): Promise<User> {
+        return await this.repository.findOne({ _id })
     }
 
-
-    async updateUser(id: string, payload: UpdateUserDto): Promise<User> {
-        const user = await this.repository.findOneAndUpdate({ id }, payload)
+    async updateUser(_id: string, payload: UpdateUserDto): Promise<User> {
+        const user = await this.repository.findOneAndUpdate({ _id }, payload)
         return user
+    }
+
+    async getAllUser(): Promise<User[]> {
+        return await this.repository.find()
+    }
+
+    async deleteUser(_id: string): Promise<User> {                
+        return await this.repository.findOneAndDelete({ _id })
     }
 }
