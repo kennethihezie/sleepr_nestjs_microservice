@@ -17,9 +17,7 @@ import { config } from '../../config/configuration';
           host: config.app.authHost,
           port: config.app.authPort
         }
-      }
-    ]),
-    ClientsModule.register([
+      },
       {
         name: PAYMENT_SERVICE, transport: Transport.TCP, options: {
           host: config.app.paymentHost,

@@ -6,13 +6,17 @@ import { UpdateReservationDto } from './models/dto/update-reservation.dto';
 import { CREATE_CHARGE_ROUTE, PAYMENT_SERVICE } from '@app/common/shared/constants/services';
 import { ClientProxy } from '@nestjs/microservices';
 import { map } from 'rxjs';
+import { UserDto } from '@app/common/shared/dto/user.dto';
 
 @Injectable()
 export class ReservationsService {
     constructor(private readonly repository: ReservationsRepository, @Inject(PAYMENT_SERVICE) private readonly paymentService: ClientProxy) {}
 
-    async create(userId: string, { charge, ...data }: CreateReservationDto){
-        return this.paymentService.send(CREATE_CHARGE_ROUTE, charge).pipe(
+    async create({ email, _id: userId }: UserDto, { charge, ...data }: CreateReservationDto){
+        return this.paymentService.send(CREATE_CHARGE_ROUTE, {
+            ...charge,
+            email
+        }).pipe(
             map(async (response) => {
                 const reservation = await this.repository.create({ ...data, userId, invoiceId: response.id } as Reservation)
                 return reservation

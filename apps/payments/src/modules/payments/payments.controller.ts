@@ -2,7 +2,7 @@ import { Controller, Get } from '@nestjs/common';
 import { PaymentsService } from './payments.service';
 import { MessagePattern, Payload } from '@nestjs/microservices';
 import { CREATE_CHARGE_ROUTE } from '@app/common/shared/constants/services';
-import { CreateChargeDto } from '../../../../../libs/common/src/shared/dto/create-charge.dto';
+import { PaymentCreateChargeDto } from './dto/payment-create-charge.dto';
 
 @Controller()
 export class PaymentsController {
@@ -10,7 +10,7 @@ export class PaymentsController {
 
 
   @MessagePattern(CREATE_CHARGE_ROUTE)
-  async createCharge(@Payload() data: CreateChargeDto) {
+  async createCharge(@Payload() data: PaymentCreateChargeDto) {
     return await this.paymentsService.createCharge(data)
   }
 }

@@ -16,7 +16,7 @@ export class ReservationsController {
   @Post()
   @ResponseMessage("Reservation created")
   async create(@Body() dto: CreateReservationDto, @CurrentUser() user: UserDto ) {
-    return await this.service.create(user._id ,dto)
+    return await this.service.create(user ,dto)
   }
 
   @Get()
