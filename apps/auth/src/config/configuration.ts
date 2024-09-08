@@ -7,7 +7,7 @@ export const config = {
         httpPort: configService.get<number>('HTTP_PORT'),
         baseUrl: configService.get<string>('BASE_URL'),
         tcpPort: configService.get<number>('TCP_PORT'),
-        microserviceHost: configService.get<string>('MICRO_SERVICE_HOST')
+        rabbitMq: configService.get<number>('RABBIT_MQ_URI')
     },
     jwt: {
         jwtSecret: configService.get<string>('JWT_SECRET'),

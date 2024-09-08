@@ -2,7 +2,7 @@ version: '3'
 
 services:
    mongodb:
-    container_name: sleepr_mongodb
+    container_name: mongo_service
     image: mongo
     ports:
       - 27017:27017
@@ -27,6 +27,12 @@ services:
       - '3000:3000'
     volumes:
       - .:/app
+
+   rabbitmq:
+    image: rabbitmq
+    container_name: rabbitmq_service
+    ports:
+     - 5672:5672
 
    auth:
     container_name: auth_app

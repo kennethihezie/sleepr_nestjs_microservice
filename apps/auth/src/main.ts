@@ -11,11 +11,9 @@ async function bootstrap() {
   app.setGlobalPrefix('api/v1');
 
   /* Used to create a microservice connection. You can select TCP, RMQ or other */
-  app.connectMicroservice({ transport: Transport.TCP, options: {
-    /* Tells the microservice to binds to all interfaces on the host */
-    host: config.app.microserviceHost,
-    /* The port for the tcp */
-    port: config.app.tcpPort
+  app.connectMicroservice({ transport: Transport.RMQ, options: {
+    urls: [ config.app.rabbitMq ],
+    queue: 'auth'
   } })
   app.useLogger(app.get(PinoLogger))
 
