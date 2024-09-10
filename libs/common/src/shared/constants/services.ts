@@ -7,9 +7,6 @@ export const NOTIFICATION_SERVICE = 'notification-service'
 export const AUTHENTICATE_ROUTE = 'authenticate'
 export const CREATE_CHARGE_ROUTE = 'create-charge'
 
-// token
-export const AUTH_TOKEN = 'AUTH_TOKEN'
-
 // events
 export const SEND_EMAIL_NOTIFICATION_EVENT = 'email-notification-event'
 

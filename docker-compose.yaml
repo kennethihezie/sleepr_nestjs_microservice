@@ -12,6 +12,12 @@ services:
     volumes:
       - mongodb-data:/data/db
 
+   rabbitmq:
+    image: rabbitmq
+    container_name: rabbitmq_service
+    ports:
+     - 5672:5672
+
    reservations:
     container_name: reservations_app
     build: 
@@ -20,6 +26,7 @@ services:
       target: developemnt
     depends_on:
       - mongodb
+      - rabbitmq
     env_file:
       - ./apps/reservations/.env
     command: ["yarn", "start:dev", "reservations"]
@@ -28,11 +35,6 @@ services:
     volumes:
       - .:/app
 
-   rabbitmq:
-    image: rabbitmq
-    container_name: rabbitmq_service
-    ports:
-     - 5672:5672
 
    auth:
     container_name: auth_app
@@ -42,6 +44,7 @@ services:
       target: developemnt
     depends_on:
       - mongodb
+      - rabbitmq
     env_file:
       - ./apps/auth/.env
     command: ["yarn", "start:dev", "auth"]
@@ -58,11 +61,12 @@ services:
       target: developemnt
     depends_on:
       - mongodb
+      - rabbitmq
     env_file:
       - ./apps/payments/.env
     command: ["yarn", "start:dev", "payments"]
     ports:
-      - '3003:3003'
+      - '3002:3002'
     volumes:
       - .:/app
 
@@ -74,11 +78,12 @@ services:
       target: developemnt
     depends_on:
       - mongodb
+      - rabbitmq
     env_file:
       - ./apps/notifications/.env
     command: ["yarn", "start:dev", "notifications"]
     ports:
-      - '3005:3005'
+      - '3003:3003'
     volumes:
       - .:/app
 

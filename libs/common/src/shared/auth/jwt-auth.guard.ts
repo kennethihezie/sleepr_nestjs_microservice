@@ -13,17 +13,17 @@ export class JwtAuthGuard implements CanActivate {
 
     canActivate(context: ExecutionContext): boolean | Observable<boolean> {
         const request = context.switchToHttp().getRequest()
-        const AUTH_TOKEN  = this.extractTokenFromHeader(request)
-        if(!AUTH_TOKEN){
+        const token  = this.extractTokenFromHeader(request)
+        if(!token){
             return false
         }        
 
         /* Send the request to the auth microservice */
-        return this.client.send<UserDto>(AUTHENTICATE_ROUTE, {
-            AUTH_TOKEN
-        }).pipe(
+        return this.client.send<UserDto>(AUTHENTICATE_ROUTE, { token }).pipe(
             /* The tap operator help us execute a side effect. The res is the user returned from the auth service */
-            tap((res) => { context.switchToHttp().getRequest().user = res }),
+            tap(() => { 
+            //   context.switchToHttp().getRequest().user = context.switchToRpc().getContext().user
+            }),
             map(() => true)
         )
     }

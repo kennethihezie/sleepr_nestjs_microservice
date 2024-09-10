@@ -3,8 +3,8 @@ import { AuthService } from './auth.service';
 import { LoginDto } from './dto/login.dto';
 import { CreateUserDto } from '../users/model/dto/create-user.dto';
 import { MessagePattern, Payload } from '@nestjs/microservices';
-import { AccessTokenGuard } from './guards/access-token.guard';
 import { AUTHENTICATE_ROUTE } from '@app/common/shared/constants/services';
+import { MicroserviceGuard } from './guards/microservice.guard';
 
 
 @Controller('auth')
@@ -21,9 +21,10 @@ export class AuthController {
     return await this.authService.login(payload)
   }
 
-  @UseGuards(AccessTokenGuard)
+  @UseGuards(MicroserviceGuard)
   @MessagePattern(AUTHENTICATE_ROUTE)
   async authenticate(@Payload() data: any) {
-     
-  }
+    console.log(data);
+    
+   }
 }
