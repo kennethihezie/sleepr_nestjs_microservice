@@ -4,12 +4,10 @@ const configService: ConfigService = new ConfigService();
 
 export const config  = { 
     app: {
-        httpPort: configService.get<number>('HTTP_PORT'),
+        port: configService.get<number>('PORT'),
         baseUrl: configService.get<string>('BASE_URL'),
-        authPort: configService.get<number>('AUTH_PORT'),
-        authHost: configService.get<string>('AUTH_HOST'),
-        paymentPort: configService.get<number>('PAYMENT_PORT'),
-        paymentHost: configService.get<string>('PAYMENT_HOST'),
-        rabbitMq: configService.get<string>('RABBIT_MQ_URI')
+    },
+    rabbitMq: {
+        url: configService.get<string>('RABBIT_MQ_URI')
     }
 }

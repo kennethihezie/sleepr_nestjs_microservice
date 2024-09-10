@@ -12,10 +12,11 @@ async function bootstrap() {
 
   /* Used to create a microservice connection. You can select TCP, RMQ or other */
   app.connectMicroservice({ transport: Transport.RMQ, options: {
-    urls: [ config.app.rabbitMq ],
+    urls: [ config.rabbitMq.url ],
     queue: 'auth',
     noAck: false
   } })
+  
   app.useLogger(app.get(PinoLogger))
 
   app.use(helmet())
@@ -32,7 +33,7 @@ async function bootstrap() {
   /* Allow the app to listen connections on TCP layer */
   await app.startAllMicroservices()
 
-  await app.listen(config.app.httpPort);
+  await app.listen(config.app.port);
 }
 
 bootstrap().then(() => {

@@ -24,6 +24,6 @@ export class AuthController {
   @UseGuards(AccessTokenGuard)
   @MessagePattern(AUTHENTICATE_ROUTE)
   async authenticate(@Payload() data: any) {
-     console.log(data);
+     
   }
 }

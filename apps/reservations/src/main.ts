@@ -23,7 +23,7 @@ async function bootstrap() {
     credentials: true,
   });
   
-  await app.listen(config.app.httpPort);
+  await app.listen(config.app.port);
 }
 
 bootstrap().then(() => {

@@ -14,5 +14,6 @@ export const AUTH_TOKEN = 'AUTH_TOKEN'
 export const SEND_EMAIL_NOTIFICATION_EVENT = 'email-notification-event'
 
 // queues
-export const AUTH = 'auth'
-export const NOTIFICATION = 'notifications'
+export const AUTH_QUEUE = 'auth'
+export const NOTIFICATION_QUEUE = 'notifications'
+export const PAYMENTS_QUEUE = 'payments'

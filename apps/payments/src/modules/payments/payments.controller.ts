@@ -1,6 +1,6 @@
 import { Controller } from '@nestjs/common';
 import { PaymentsService } from './payments.service';
-import { Ctx, MessagePattern, Payload, RmqContext } from '@nestjs/microservices';
+import { MessagePattern, Payload, RmqContext } from '@nestjs/microservices';
 import { CREATE_CHARGE_ROUTE } from '@app/common/shared/constants/services';
 import { PaymentCreateChargeDto } from './dto/payment-create-charge.dto';
 
@@ -11,12 +11,7 @@ export class PaymentsController {
 
 
   @MessagePattern(CREATE_CHARGE_ROUTE)
-  async createCharge(@Payload() data: PaymentCreateChargeDto, @Ctx() context: RmqContext) {
-    // const channel = context.getChannelRef()
-    // const originalMsg = context.getMessage()
-
-    // channel.ack(originalMsg)
-
+  async createCharge(@Payload() data: PaymentCreateChargeDto) {
     return await this.paymentsService.createCharge(data)
   }
 }

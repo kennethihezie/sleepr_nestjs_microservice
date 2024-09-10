@@ -25,16 +25,19 @@ export class ReservationsController {
     return await this.service.findAll()
   }
 
+  @ResponseMessage("Reservation fetched successfully")
   @Get('/:id')
   async findOne(@Param('id') id: string) {
     return await this.service.findOne(id)
   }
 
+  @ResponseMessage("Reservation updated successfully")
   @Put('/:id')
   async update(@Param('id') id: string, @Body() dto: UpdateReservationDto){
     return this.service.update(id, dto)
   }
 
+  @ResponseMessage("Reservation deleted successfully")
   @Delete('/:id')
   async remove(@Param('id') id: string) {
     return this.service.remove(id)

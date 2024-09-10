@@ -5,7 +5,7 @@ import { DatabaseModule } from '@app/common/modules';
 import { ReservationsRepository } from './reservation.repository';
 import { Reservation, ReservationSchema } from './models/schema/reservation.schema';
 import { ClientsModule, Transport } from '@nestjs/microservices';
-import { AUTH_SERVICE, PAYMENT_SERVICE } from '@app/common/shared/constants/services';
+import { AUTH_QUEUE, AUTH_SERVICE, PAYMENT_SERVICE, PAYMENTS_QUEUE } from '@app/common/shared/constants/services';
 import { config } from '../../config/configuration';
 
 @Module({
@@ -14,14 +14,14 @@ import { config } from '../../config/configuration';
     ClientsModule.register([
       {
         name: AUTH_SERVICE, transport: Transport.RMQ, options: {
-          urls: [ config.app.rabbitMq ],
-          queue: 'auth'
+          urls: [ config.rabbitMq.url ],
+          queue: AUTH_QUEUE
         }
       },
       {
         name: PAYMENT_SERVICE, transport: Transport.RMQ, options: {
-          urls: [ config.app.rabbitMq ],
-          queue: 'payments'
+          urls: [ config.rabbitMq.url ],
+          queue: PAYMENTS_QUEUE,
         }
       }
     ]),

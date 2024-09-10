@@ -5,6 +5,6 @@ import { EmailNotificationDto } from './dto/email-notifcation.dto';
 export class NotificationsService {
   
   async sendEmailNotification({ email, text }: EmailNotificationDto) {
-    console.log(email);
+    //TODOD implement nodemailer for sending emails.
   }
 }

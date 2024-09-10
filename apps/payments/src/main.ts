@@ -24,13 +24,13 @@ async function bootstrap() {
   });
 
   app.connectMicroservice({ transport: Transport.RMQ, options: {
-    urls: [ config.app.rabbitMq ],
+    urls: [ config.rabbitMq.url ],
     queue: 'payments'
   } })
 
   await app.startAllMicroservices()
   
-  await app.listen(config.app.httpPort);
+  await app.listen(config.app.port);
 }
 
 bootstrap().then(() => {

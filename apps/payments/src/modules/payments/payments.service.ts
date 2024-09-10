@@ -25,6 +25,7 @@ export class PaymentsService {
         currency: 'usd'
     })
 
+    // emit event to notification microservice
     this.notificationService.emit(SEND_EMAIL_NOTIFICATION_EVENT, { email, text: 'Your payment was successful' })
 
     return paymentIntent
