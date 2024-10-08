@@ -10,26 +10,27 @@ async function bootstrap() {
   const app = await NestFactory.create(PaymentRootModule);
   app.setGlobalPrefix('api/v1');
 
-  app.useLogger(app.get(PinoLogger))
+  app.useLogger(app.get(PinoLogger));
 
-  app.use(helmet())
+  app.use(helmet());
 
   app.enableCors({
-    origin: [
-      config.app.baseUrl,
-    ],
+    origin: [config.app.baseUrl],
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
     preflightContinue: false,
     credentials: true,
   });
 
-  app.connectMicroservice({ transport: Transport.RMQ, options: {
-    urls: [ config.rabbitMq.url ],
-    queue: 'payments'
-  } })
+  app.connectMicroservice({
+    transport: Transport.RMQ,
+    options: {
+      urls: [config.rabbitMq.url],
+      queue: 'payments',
+    },
+  });
 
-  await app.startAllMicroservices()
-  
+  await app.startAllMicroservices();
+
   await app.listen(config.app.port);
 }
 

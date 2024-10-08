@@ -1,19 +1,27 @@
-import { Type } from "class-transformer"
-import { IsDate, IsDefined, IsNotEmpty, IsNotEmptyObject, IsNumber, IsString, ValidateNested } from "class-validator"
-import { CreateChargeDto } from "@app/common/shared/dto/create-charge.dto"
+import { Type } from 'class-transformer';
+import {
+  IsDate,
+  IsDefined,
+  IsNotEmpty,
+  IsNotEmptyObject,
+  IsNumber,
+  IsString,
+  ValidateNested,
+} from 'class-validator';
+import { CreateChargeDto } from '@app/common/shared/dto/create-charge.dto';
 
 export class CreateReservationDto {
-    @IsDate()
-    @Type(() => Date)
-    startDate: Date
+  @IsDate()
+  @Type(() => Date)
+  startDate: Date;
 
-    @IsDate()
-    @Type(() => Date)
-    endDate: Date
+  @IsDate()
+  @Type(() => Date)
+  endDate: Date;
 
-    @IsDefined()
-    @IsNotEmptyObject()
-    @ValidateNested()
-    @Type(() => CreateChargeDto)
-    charge: CreateChargeDto
+  @IsDefined()
+  @IsNotEmptyObject()
+  @ValidateNested()
+  @Type(() => CreateChargeDto)
+  charge: CreateChargeDto;
 }

@@ -3,15 +3,16 @@ import { ConfigService } from '@nestjs/config';
 import { ModelDefinition, MongooseModule } from '@nestjs/mongoose';
 import { dbConfig } from './config/database-config';
 
-
 @Module({
-  imports: [MongooseModule.forRootAsync({
-    useFactory: (configService: ConfigService) => (dbConfig),
-    inject: [ ConfigService ]
-  })]
+  imports: [
+    MongooseModule.forRootAsync({
+      useFactory: (configService: ConfigService) => dbConfig,
+      inject: [ConfigService],
+    }),
+  ],
 })
 export class DatabaseModule {
-    static forFeature(models: ModelDefinition[]){
-        return MongooseModule.forFeature(models)
-    }
- }
+  static forFeature(models: ModelDefinition[]) {
+    return MongooseModule.forFeature(models);
+  }
+}

@@ -1,2 +1,2 @@
-export * from './database.module'
-export * from './data'
+export * from './database.module';
+export * from './data';

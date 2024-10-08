@@ -1,19 +1,19 @@
-import { BaseDocument } from "@app/common/modules";
-import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
+import { BaseDocument } from '@app/common/modules';
+import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 
 @Schema({ timestamps: true })
 export class Reservation extends BaseDocument {
-    @Prop()
-    userId: string
-    
-    @Prop()
-    invoiceId: string
+  @Prop()
+  userId: string;
 
-    @Prop()
-    startDate: Date
+  @Prop()
+  invoiceId: string;
 
-    @Prop()
-    endDate: Date
+  @Prop()
+  startDate: Date;
+
+  @Prop()
+  endDate: Date;
 }
 
-export const ReservationSchema = SchemaFactory.createForClass(Reservation) 
+export const ReservationSchema = SchemaFactory.createForClass(Reservation);

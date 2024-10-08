@@ -7,9 +7,8 @@ import { AccessTokenStrategy } from './strategies/access-token.strategy';
 import { RefreshTokenStrategy } from './strategies/refresh-token.strategy';
 import { AppJwtService } from './jwt.service';
 
-
 @Module({
-  imports: [ JwtModule.register({}), UsersModule ],
+  imports: [JwtModule.register({}), UsersModule],
   controllers: [AuthController],
   providers: [
     AppJwtService,
@@ -18,4 +17,4 @@ import { AppJwtService } from './jwt.service';
     AuthService,
   ],
 })
-export class AuthModule { }
+export class AuthModule {}

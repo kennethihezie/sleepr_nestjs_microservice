@@ -3,8 +3,7 @@
  SUCCESSFUL and FAIL to be used accross the project.
  */
 
-
 export abstract class AppCodes {
-    static SUCCESSFUL = "OK"    // Successful
-    static FAIL = "FAIL"    // UnSuccessful
+  static SUCCESSFUL = 'OK'; // Successful
+  static FAIL = 'FAIL'; // UnSuccessful
 }

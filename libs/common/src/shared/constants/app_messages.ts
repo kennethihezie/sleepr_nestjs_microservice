@@ -3,6 +3,4 @@
  variables used accross the app for response messages to users.
  */
 
-export class AppMessages {
-   
-}
+export class AppMessages {}

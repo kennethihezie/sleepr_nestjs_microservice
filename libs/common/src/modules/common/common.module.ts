@@ -8,4 +8,4 @@ import { AppLoggerModule } from '../logger/logger.module';
   exports: [CommonService],
   imports: [DatabaseModule, AppLoggerModule],
 })
-export class CommonModule { }
+export class CommonModule {}

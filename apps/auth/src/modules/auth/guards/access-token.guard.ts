@@ -1,4 +1,3 @@
-import { AuthGuard } from "@nestjs/passport"
+import { AuthGuard } from '@nestjs/passport';
 
-
-export class AccessTokenGuard extends AuthGuard('jwt') { }
+export class AccessTokenGuard extends AuthGuard('jwt') {}

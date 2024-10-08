@@ -11,27 +11,28 @@ async function bootstrap() {
   app.setGlobalPrefix('api/v1');
 
   /* Used to create a microservice connection. You can select TCP, RMQ or other */
-  app.connectMicroservice({ transport: Transport.RMQ, options: {
-    urls: [ config.rabbitMq.url ],
-    queue: 'auth',
-    noAck: false
-  } })
-  
-  app.useLogger(app.get(PinoLogger))
+  app.connectMicroservice({
+    transport: Transport.RMQ,
+    options: {
+      urls: [config.rabbitMq.url],
+      queue: 'auth',
+      noAck: false,
+    },
+  });
 
-  app.use(helmet())
-  
+  app.useLogger(app.get(PinoLogger));
+
+  app.use(helmet());
+
   app.enableCors({
-    origin: [
-      config.app.baseUrl,
-    ],
+    origin: [config.app.baseUrl],
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
     preflightContinue: false,
     credentials: true,
   });
 
   /* Allow the app to listen connections on TCP layer */
-  await app.startAllMicroservices()
+  await app.startAllMicroservices();
 
   await app.listen(config.app.port);
 }
