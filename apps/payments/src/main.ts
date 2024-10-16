@@ -5,6 +5,7 @@ import helmet from 'helmet';
 import { config } from './config/configuration';
 import { Logger } from '@nestjs/common';
 import { Transport } from '@nestjs/microservices';
+import { PAYMENTS_QUEUE } from '@app/common/shared/constants/services';
 
 async function bootstrap() {
   const app = await NestFactory.create(PaymentRootModule);
@@ -25,7 +26,7 @@ async function bootstrap() {
     transport: Transport.RMQ,
     options: {
       urls: [config.rabbitMq.url],
-      queue: 'payments',
+      queue: PAYMENTS_QUEUE,
     },
   });
 

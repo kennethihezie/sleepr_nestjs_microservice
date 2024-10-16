@@ -35,7 +35,6 @@ services:
     volumes:
       - .:/app
 
-
    auth:
     container_name: auth_app
     build: 
@@ -60,7 +59,6 @@ services:
       dockerfile: ./apps/payments/Dockerfile
       target: developemnt
     depends_on:
-      - mongodb
       - rabbitmq
     env_file:
       - ./apps/payments/.env
@@ -77,7 +75,6 @@ services:
       dockerfile: ./apps/notifications/Dockerfile
       target: developemnt
     depends_on:
-      - mongodb
       - rabbitmq
     env_file:
       - ./apps/notifications/.env

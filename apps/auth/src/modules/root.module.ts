@@ -14,10 +14,10 @@ import { AuthModule } from './auth/auth.module';
     AuthModule,
   ],
   providers: [
-    // {
-    //   provide: APP_FILTER,
-    //   useClass: AppExceptionFilter,
-    // },
+    {
+      provide: APP_FILTER,
+      useClass: AppExceptionFilter,
+    },
 
     {
       provide: APP_INTERCEPTOR,

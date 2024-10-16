@@ -5,6 +5,7 @@ import { Logger } from '@nestjs/common';
 import { AuthRootModule } from './modules/root.module';
 import { Transport } from '@nestjs/microservices';
 import helmet from 'helmet';
+import { AUTH_QUEUE, AUTH_SERVICE } from '@app/common/shared/constants/services';
 
 async function bootstrap() {
   const app = await NestFactory.create(AuthRootModule);
@@ -15,7 +16,7 @@ async function bootstrap() {
     transport: Transport.RMQ,
     options: {
       urls: [config.rabbitMq.url],
-      queue: 'auth',
+      queue: AUTH_QUEUE,
       noAck: false,
     },
   });
